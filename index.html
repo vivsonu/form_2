@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Save Web Form Data to Spreadsheets - Contact Form</title>
+<style>
+  input[type="text"] 
+  {
+  font: 17px Calibri;
+  width: 18%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  }
+  button  {
+  font: 17px Calibri;
+  width: auto;
+  float: left;
+  cursor: pointer;
+  padding: 5px;
+  }
+</style>
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<script>
+function SubForm (){
+    $.ajax({
+        url:'https://api.apispreadsheets.com/data/15202/',
+        type:'post',
+        data:$("#myForm").serializeArray(),
+        success: function(){
+          alert("Form Data Submitted :)")
+        },
+        error: function(){
+          alert("There was an error :(")
+        }
+    });
+}
+</script>
+
+</head>
+<body>
+  <form id="myForm">
+    <div >
+      <label for="fname"><b>Full Name : </b></label>
+      <input  type="text" name="full_name" id="fname" style="margin-left: 17px; margin-bottom: 17px;" >
+    </div>
+    <div>
+       <b>Gender : </b>
+      <input type="radio" id="male" name="Gender" value="Male" >
+      <label for="male">Male</label>
+      <input type="radio" id="female" name="Gender" value="Female">
+      <label for="female">Female</label>
+      <input type="radio" id="other" name="Gender" value="Other">
+      <label for="other">Other</label>
+    </div>
+    <br/>
+<!--Local Date and Time -->
+Local Date and  Time:
+<input type="text" id="localDateTime" name="localDateTime"  readonly style="color: green">
+<br><br>
+<script>
+var today = new Date();
+var time = today.toLocaleString();
+  document.getElementById("localDateTime").value = time;
+</script>
+
+
+<!--Local Time -->
+Local Time:
+<input type="text" id="localTime" name="localTime"  readonly style="color: green">
+<br><br>
+<script>
+var today = new Date();
+var time = today.toLocaleTimeString();
+  document.getElementById("localTime").value = time;
+</script>
+
+
+  </form>
+  <button onclick="SubForm()">Submit</button>
+</body>
+</html>
